@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "sonner";
 
 import env from "@/configs/env";
-import { Plus, UploadCloud } from "lucide-react";
+import { UploadCloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Move static configuration outside to prevent unnecessary re-renders

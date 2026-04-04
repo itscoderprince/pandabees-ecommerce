@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes"
 import { Toaster as Sonner } from "sonner";
-import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from "lucide-react"
+import { CheckCircle2, XCircle, Info, AlertTriangle, Loader2 } from "lucide-react"
 
 const Toaster = ({
   ...props
@@ -12,28 +12,32 @@ const Toaster = ({
   return (
     <Sonner
       theme={theme}
+      position="bottom-right"
       className="toaster group"
+      style={
+        {
+          "--normal-bg": "var(--background)",
+          "--normal-text": "var(--foreground)",
+          "--normal-border": "var(--border)",
+        }
+      }
       toastOptions={{
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg group-[.toaster]:rounded-full group-[.toaster]:px-4 group-[.toaster]:py-2 group-[.toaster]:font-medium",
+            "group toast bg-background text-foreground border-border border shadow-lg !rounded-full px-5 py-2 gap-3.5 font-sans text-[16px] font-semibold leading-snug !w-auto",
           description: "group-[.toast]:text-muted-foreground",
           actionButton:
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
           cancelButton:
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-          success: "group-[.toaster]:text-green-600",
-          error: "group-[.toaster]:text-red-600",
-          warning: "group-[.toaster]:text-yellow-600",
-          info: "group-[.toaster]:text-blue-600",
         },
       }}
       icons={{
-        success: <CircleCheckIcon className="size-5 text-green-500" />,
-        error: <OctagonXIcon className="size-5 text-red-500" />,
-        warning: <TriangleAlertIcon className="size-5 text-yellow-500" />,
-        info: <InfoIcon className="size-5 text-blue-500" />,
-        loading: <Loader2Icon className="size-5 animate-spin text-muted-foreground" />,
+        success: <CheckCircle2 strokeWidth={2} className="w-5 h-5 text-white fill-emerald-600" />,
+        error: <XCircle strokeWidth={2} className="w-5 h-5 text-white fill-red-600" />,
+        info: <Info strokeWidth={2} className="w-5 h-5 text-white fill-blue-600" />,
+        warning: <AlertTriangle strokeWidth={2} className="w-5 h-5 text-white fill-amber-600" />,
+        loading: <Loader2 className="w-5 h-5 animate-spin text-zinc-500" />,
       }}
       {...props} />
   );

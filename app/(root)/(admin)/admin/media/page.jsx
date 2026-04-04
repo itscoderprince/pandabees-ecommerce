@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
-import { Search, Filter, X, Image as ImageIcon, Trash, Trash2, Loader2, RotateCcw } from "lucide-react";
+import { Search, Filter, X, Image as ImageIcon, Trash, Trash2, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Spinner } from "@/components/ui/spinner";
 
 import UploadMedia from "@/components/shared/UploadMedia";
 import Media from "@/components/shared/Media";
@@ -40,7 +40,7 @@ const MediaPage = () => {
      */
     const fetchMedia = async (page, deleteType) => {
         const { data } = await axios.get(
-            `/api/media?page=${page}&limit=13&deleteType=${deleteType}`,
+            `/api/media?page=${page}&limit=18&deleteType=${deleteType}`,
         );
         return data;
     };
@@ -162,7 +162,7 @@ const MediaPage = () => {
                         <Filter className="h-4 w-4" />
                     </Button>
 
-                    <div className="h-6 w-[1px] bg-border mx-1" />
+                    <div className="h-6 w-px bg-border mx-1" />
 
                     {/* Robust Theme-Reactive View Switcher */}
                     <div className="flex items-center">
@@ -211,7 +211,7 @@ const MediaPage = () => {
                                 <span className="text-[9px] font-black text-white tracking-widest uppercase">ALL</span>
                             </div>
 
-                            <div className="h-4 w-[1px] bg-white/20 mx-1" />
+                            <div className="h-4 w-px bg-white/20 mx-1" />
 
                             {isTrashView ? (
                                 <>
@@ -248,18 +248,9 @@ const MediaPage = () => {
             {/* Main Content Area - Full Width & Dense Grid */}
             <div className="relative min-h-[85vh] rounded-2xl border bg-slate-50/20 dark:bg-slate-950/20 transition-all duration-500">
                 {status === "pending" ? (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 animate-in fade-in duration-700">
-                        <div className="relative flex items-center justify-center pt-20">
-                            {/* Professional Loader with Pulsing Background */}
-                            <div className="absolute h-24 w-24 bg-violet-500/10 rounded-full animate-pulse blur-xl" />
-                            <Loader2 className="h-12 w-12 animate-spin text-violet-600 transition-all" />
-                        </div>
-                        <div className="flex flex-col items-center gap-2">
-                            <p className="text-sm font-semibold tracking-wide text-foreground uppercase opacity-80">Loading Assets</p>
-                            <div className="h-1 w-24 bg-muted rounded-full overflow-hidden">
-                                <div className="h-full bg-violet-600 animate-loading-bar" />
-                            </div>
-                        </div>
+                    <div className="flex flex-col items-center justify-center min-h-[400px] gap-3">
+                        <Spinner className="h-10 w-10 text-violet-600" />
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest animate-pulse">Syncing Library</p>
                     </div>
                 ) : status === "error" ? (
                     <div className="flex min-h-[400px] w-full flex-col items-center justify-center text-center p-12">
@@ -300,13 +291,13 @@ const MediaPage = () => {
                                     onClick={() => fetchNextPage()}
                                     disabled={isFetchingNextPage}
                                     variant="outline"
-                                    className="min-h-12 px-10 rounded-full border-2 border-violet-100 hover:border-violet-600 hover:bg-violet-50 text-violet-600 font-bold shadow-sm transition-all duration-300 group"
+                                    className="h-9 px-8 rounded-xl border-zinc-200 hover:border-violet-500 hover:bg-violet-50/50 text-foreground hover:text-violet-600 font-bold transition-all duration-300 shadow-none text-xs group"
                                 >
                                     {isFetchingNextPage ? (
-                                        <Loader2 className="animate-spin mr-3 h-5 w-5" />
+                                        <Spinner className="mr-2 h-3.5 w-3.5" />
                                     ) : null}
-                                    <span className="group-active:scale-95 transition-transform">
-                                        {isFetchingNextPage ? "Synchronizing Asset Library..." : "Show More Assets"}
+                                    <span>
+                                        {isFetchingNextPage ? "Syncing..." : "Load More Assets"}
                                     </span>
                                 </Button>
                             </div>

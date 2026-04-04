@@ -6,8 +6,8 @@ import axios from "axios";
 import { toast } from "sonner";
 
 import env from "@/configs/env";
-import { Plus } from "lucide-react";
-import UIButton from "./UIButton";
+import { Plus, UploadCloud } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // Move static configuration outside to prevent unnecessary re-renders
 const WIDGET_STYLES = {
@@ -101,16 +101,16 @@ const UploadMedia = ({ isMultiple = true }) => {
             options={widgetOptions}
         >
             {({ open }) => (
-                <UIButton 
+                <Button
                     onClick={(e) => {
                         e.preventDefault();
                         open?.();
                     }}
-                    className="gap-2"
+                    className="h-9 px-4 rounded-xl bg-violet-600 hover:bg-violet-700 text-white shadow-sm transition-all active:scale-95 gap-2"
                 >
-                    <Plus size={16} strokeWidth={3} />
-                    Upload Media
-                </UIButton>
+                    <UploadCloud className="h-4 w-4" strokeWidth={2} />
+                    <span className="font-bold text-sm">Upload</span>
+                </Button>
             )}
         </CldUploadWidget>
     );

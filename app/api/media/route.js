@@ -11,7 +11,7 @@ export const GET = wrapRoute(async (req) => {
   await connectDB();
 
   const searchParams = req.nextUrl.searchParams;
-  const page = parseInt(searchParams.get("page"), 10) || 0;
+  const page = parseInt(searchParams.get("page"), 10) || 1;
   const limit = parseInt(searchParams.get("limit"), 10) || 12;
   const deleteType = searchParams.get("deleteType"); // String ("SD" or "PD")
 
@@ -24,13 +24,16 @@ export const GET = wrapRoute(async (req) => {
 
   const mediaData = await Media.find(filter)
     .sort({ createdAt: -1 })
-    .skip(page * limit)
+    .skip((page - 1) * limit)
     .limit(limit)
     .lean();
   const totalMedia = await Media.countDocuments(filter);
 
   return NextResponse.json({
     mediaData: mediaData,
-    hasMore: (page + 1) * limit < totalMedia,
+    pagination: {
+      total: totalMedia,
+      nextPage: (page * limit) < totalMedia ? page + 1 : undefined,
+    },
   });
 });

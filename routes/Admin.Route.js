@@ -20,3 +20,5 @@ export const ADMIN_ROUTES = {
   SETTINGS: "/admin/settings",
   ANALYTICS: "/admin/analytics",
 };
+
+export const ADMIN_MEDIA_EDIT = (id) => (id ? `/admin/media/edit${id}` : "");

@@ -132,7 +132,7 @@ const data = {
 export function AppSidebar({ ...props }) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="flex h-16 shrink-0 items-center justify-center border-b px-2 transition-all duration-300 group-data-[collapsible=icon]:h-14">
+      <SidebarHeader className="flex h-14 shrink-0 items-center justify-center border-b px-2 transition-all duration-300">
 
         <SidebarMenu className="transition-all duration-300">
           <SidebarMenuItem>

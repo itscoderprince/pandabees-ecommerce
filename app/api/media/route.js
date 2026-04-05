@@ -3,6 +3,9 @@ import { isAuthenticated, response, wrapRoute } from "@/lib/helper";
 import Media from "@/models/media.model";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const GET = wrapRoute(async (req) => {
   const admin = await isAuthenticated("admin");
   console.log(admin);

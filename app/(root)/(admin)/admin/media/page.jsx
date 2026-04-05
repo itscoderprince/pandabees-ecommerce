@@ -41,6 +41,7 @@ const MediaPage = () => {
     const fetchMedia = async (page, deleteType) => {
         const { data } = await axios.get(
             `/api/media?page=${page}&limit=18&deleteType=${deleteType}`,
+            { withCredentials: true }
         );
         return data;
     };

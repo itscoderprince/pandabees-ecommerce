@@ -106,10 +106,10 @@ const UploadMedia = ({ isMultiple = true }) => {
                         e.preventDefault();
                         open?.();
                     }}
-                    className="h-9 px-4 rounded-xl bg-violet-600 hover:bg-violet-700 text-white shadow-sm transition-all active:scale-95 gap-2"
+                    className="h-9 px-3 sm:px-4 rounded-xl bg-violet-600 hover:bg-violet-700 text-white shadow-sm transition-all active:scale-95 gap-2"
                 >
                     <UploadCloud className="h-4 w-4" strokeWidth={2} />
-                    <span className="font-bold text-sm">Upload</span>
+                    <span className="font-bold text-sm hidden sm:inline">Upload</span>
                 </Button>
             )}
         </CldUploadWidget>

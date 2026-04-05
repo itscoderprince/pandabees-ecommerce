@@ -110,8 +110,8 @@ const MediaPage = () => {
     return (
         <div className="flex flex-col gap-2">
             {/* Header Section - Branded & Informative */}
-            <div className="flex items-center justify-between w-full gap-8">
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-4 md:gap-8">
+                <div className="flex items-center gap-3">
                     <div className={cn(
                         "p-2.5 rounded-2xl flex items-center justify-center shadow-lg transition-transform hover:scale-105 duration-300",
                         isTrashView
@@ -121,10 +121,10 @@ const MediaPage = () => {
                         {isTrashView ? <Trash className="h-5 w-5" /> : <ImageIcon className="h-5 w-5" />}
                     </div>
                     <div className="flex flex-col">
-                        <h1 className="text-2xl font-black tracking-tight text-foreground transition-none animate-in fade-in slide-in-from-left-2 duration-300">
+                        <h1 className="text-xl md:text-2xl font-black tracking-tight text-foreground transition-none animate-in fade-in slide-in-from-left-2 duration-300">
                             {isTrashView ? "Trash Bin" : "Media Library"}
                         </h1>
-                        <p className="text-muted-foreground font-bold text-[10px] uppercase tracking-widest opacity-70 animate-in fade-in slide-in-from-left-4 duration-500">
+                        <p className="text-muted-foreground font-bold text-[9px] md:text-[10px] uppercase tracking-widest opacity-70 animate-in fade-in slide-in-from-left-4 duration-500 line-clamp-1 sm:line-clamp-none mt-0.5">
                             {isTrashView
                                 ? "Review discarded assets. Items can be restored or erased."
                                 : "Organize and manage your digital visual experiences."}
@@ -132,7 +132,7 @@ const MediaPage = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2 p-0 bg-transparent">
+                <div className="flex flex-wrap items-center gap-2 p-0 bg-transparent w-full md:w-auto justify-start md:justify-end">
                     {/* Minimalist Search Area */}
                     <div className={cn(
                         "flex items-center transition-all duration-500 ease-in-out px-1",
@@ -170,7 +170,7 @@ const MediaPage = () => {
                             variant="ghost"
                             asChild
                             className={cn(
-                                "h-9 px-4 rounded-xl font-bold gap-2 transition-all duration-200 border flex items-center justify-center shadow-sm",
+                                "h-9 px-3 sm:px-4 rounded-xl font-bold gap-2 transition-all duration-200 border flex items-center justify-center shadow-sm",
                                 isTrashView
                                     ? "bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-500"
                                     : "bg-white dark:bg-zinc-900 text-rose-600 dark:text-rose-500 border-rose-200 dark:border-rose-800/60 hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:border-rose-300"
@@ -180,12 +180,12 @@ const MediaPage = () => {
                                 {isTrashView ? (
                                     <>
                                         <ImageIcon className="h-4 w-4" />
-                                        <span className="whitespace-nowrap">Media View</span>
+                                        <span className="whitespace-nowrap hidden sm:inline">Media View</span>
                                     </>
                                 ) : (
                                     <>
                                         <Trash2 className="h-4 w-4" />
-                                        <span className="whitespace-nowrap">Trash Bin</span>
+                                        <span className="whitespace-nowrap hidden sm:inline">Trash Bin</span>
                                     </>
                                 )}
                             </Link>
@@ -200,7 +200,7 @@ const MediaPage = () => {
                         <div className="flex items-center gap-1 p-0.5 pl-3 pr-1 bg-zinc-900 dark:bg-zinc-950 rounded-full animate-in slide-in-from-right-3 duration-300 shadow-2xl ml-1 border border-zinc-800/20">
                             {/* Toggle ALL inside the pill */}
                             <div
-                                className="flex items-center gap-2 px-2 hover:bg-white/10 rounded-full cursor-pointer h-7 transition-colors"
+                                className="flex items-center gap-1.5 sm:gap-2 px-1.5 sm:px-2 hover:bg-white/10 rounded-full cursor-pointer h-7 transition-colors border-r border-white/20 pr-2 sm:pr-3"
                                 onClick={() => handleSelectAll(!isAllSelected)}
                             >
                                 <Checkbox
@@ -208,36 +208,34 @@ const MediaPage = () => {
                                     onCheckedChange={handleSelectAll}
                                     className="h-3 w-3 bg-transparent border-white/40 data-[state=checked]:bg-violet-500 data-[state=checked]:border-violet-500"
                                 />
-                                <span className="text-[9px] font-black text-white tracking-widest uppercase">ALL</span>
+                                <span className="text-[9px] font-black text-white tracking-widest uppercase hidden sm:inline">ALL</span>
                             </div>
-
-                            <div className="h-4 w-px bg-white/20 mx-1" />
 
                             {isTrashView ? (
                                 <>
                                     <Button
                                         size="sm"
                                         onClick={() => handleRestore(selectedMedia)}
-                                        className="h-7 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-[9px] px-3 gap-1"
+                                        className="h-7 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-[9px] px-2 sm:px-3 gap-1 sm:gap-1.5 ml-1"
                                     >
-                                        <RotateCcw className="h-3 w-3" /> RESTORE
+                                        <RotateCcw className="h-3 w-3" /> <span className="hidden sm:inline">RESTORE</span>
                                     </Button>
                                     <Button
                                         size="sm"
                                         variant="destructive"
                                         onClick={() => handleDelete(selectedMedia)}
-                                        className="h-7 rounded-full font-bold text-[9px] px-3 gap-1"
+                                        className="h-7 rounded-full font-bold text-[9px] px-2 sm:px-3 gap-1 sm:gap-1.5"
                                     >
-                                        <Trash2 className="h-3 w-3" /> PURGE
+                                        <Trash2 className="h-3 w-3" /> <span className="hidden sm:inline">PURGE</span>
                                     </Button>
                                 </>
                             ) : (
                                 <Button
                                     variant="destructive"
                                     onClick={() => handleDelete(selectedMedia)}
-                                    className="h-7 rounded-full font-bold text-[9px] px-4 gap-1.5"
+                                    className="h-7 rounded-full font-bold text-[9px] px-2 sm:px-4 gap-1 sm:gap-1.5 ml-1"
                                 >
-                                    <Trash className="h-3 w-3" /> TRASH
+                                    <Trash className="h-3 w-3" /> <span className="hidden sm:inline">TRASH</span>
                                 </Button>
                             )}
                         </div>

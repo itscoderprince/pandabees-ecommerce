@@ -4,6 +4,7 @@ import React, { useMemo, useCallback } from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import axios from "axios";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 import env from "@/configs/env";
 import { UploadCloud } from "lucide-react";
@@ -35,6 +36,7 @@ const WIDGET_SOURCES = ['local', 'url', 'unsplash', 'google_drive', 'dropbox', '
  * Uses memoized callbacks and static configuration for high performance.
  */
 const UploadMedia = ({ isMultiple = true }) => {
+    const queryClient = useQueryClient();
 
     // Memoized error handler
     const onError = useCallback((error) => {
@@ -67,6 +69,8 @@ const UploadMedia = ({ isMultiple = true }) => {
                 const { data } = await axios.post("/api/media/create", mediaToSave);
                 if (data.success) {
                     toast.success(`${mediaToSave.length} file(s) indexed successfully.`);
+                    // Manually invalidate cache because mobile file pickers don't always trigger window focus events
+                    queryClient.invalidateQueries(["media-data"]);
                 } else {
                     toast.error(data.message || "Metadata sync failed.");
                 }
